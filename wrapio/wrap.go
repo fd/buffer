@@ -30,7 +30,7 @@ func (w *wrapper) Seek(offset int64, whence int) (int64, error) {
 	case 1:
 		w.off += offset
 	case 2:
-		w.off = (w.wrapAt + offset)
+		w.off = w.wrapAt + offset
 	}
 	w.off %= w.wrapAt
 	return w.off, nil
@@ -50,7 +50,7 @@ func NewWrapWriter(w io.WriterAt, off int64, wrapAt int64) *WrapWriter {
 	return &WrapWriter{
 		&wrapper{
 			doat:   w.WriteAt,
-			off:    (off % wrapAt),
+			off:    off % wrapAt,
 			wrapAt: wrapAt,
 		},
 	}
@@ -79,7 +79,7 @@ func NewWrapReader(r io.ReaderAt, off int64, wrapAt int64) *WrapReader {
 	return &WrapReader{
 		&wrapper{
 			doat:   r.ReadAt,
-			off:    (off % wrapAt),
+			off:    off % wrapAt,
 			wrapAt: wrapAt,
 		},
 	}
