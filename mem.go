@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/djherbis/buffer/limio"
+	"github.com/fd/buffer/limio"
 )
 
 type memory struct {
