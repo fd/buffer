@@ -4,7 +4,7 @@ import (
 	"io"
 	"math"
 
-	"github.com/djherbis/buffer/wrapio"
+	"github.com/fd/buffer/wrapio"
 )
 
 type ring struct {
