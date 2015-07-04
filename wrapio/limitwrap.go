@@ -66,6 +66,30 @@ func (wpr *Wrapper) Read(p []byte) (n int, err error) {
 	return n, err
 }
 
+func (wpr *Wrapper) Seek(offset int64, whence int) (int64, error) {
+	wpr.L = wpr.L + wpr.O
+	wpr.O = 0
+
+	switch whence {
+
+	case 0:
+		// offset = offset
+
+	case 1:
+		offset = wpr.O + offset
+
+	case 2:
+		offset = wpr.L + offset
+
+	}
+
+	wpr.L -= offset
+	wpr.O += offset
+	wpr.O %= wpr.N
+
+	return wpr.O, nil
+}
+
 // ReadAt reads from the current offset+off into p, wrapping at Cap()
 func (wpr *Wrapper) ReadAt(p []byte, off int64) (n int, err error) {
 	wrap := NewWrapReader(wpr.rwa, wpr.O+off, wpr.N)
