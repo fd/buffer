@@ -575,6 +575,10 @@ func (f *fakeFile) ReadAt(p []byte, off int64) (int, error) {
 	return 0, io.EOF
 }
 
+func (f *fakeFile) Seek(off int64, whence int) (int64, error) {
+	return 0, nil
+}
+
 func (f *fakeFile) WriteAt(p []byte, off int64) (int, error) {
 	return 0, io.ErrShortWrite
 }
